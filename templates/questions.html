@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated MCQs</title>
+</head>
+<body>
+    <h1>Generated MCQs</h1>
+    {% if mcqs %}
+        <ol>
+            {% for question in mcqs %}
+                <li>
+                    {{ question[1][0] }}<br>
+                    <ul>
+                        {% for i, option in enumerate(question[1][1]) %}
+                            <li>{{ chr(97 + i) }} {{ option }}</li>
+                        {% endfor %}
+                    </ul>
+                    Correct Answer: {{ question[1][2] }}
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No MCQs generated.</p>
+    {% endif %}
+</body>
+</html>

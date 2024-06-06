@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizzably</title>
+    <title>Upload PDF</title>
 </head>
 <body>
-    <h1>Quizzably</h1>
-    <p>Quizzably is a simple quiz application that allows you to create and take quizzes.</p>
-    <p>Click the button below to get started.</p>
-    <a href="#" class="btn btn-primary">Start</a>
+    <h1>Upload PDF to Generate MCQs</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="pdf_file" accept=".pdf" required>
+        <button type="submit">Upload</button>
+    </form>
 </body>
 </html>
