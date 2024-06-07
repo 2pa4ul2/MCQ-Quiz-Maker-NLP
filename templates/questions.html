@@ -2,27 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generated MCQs</title>
 </head>
 <body>
-    <h1>Generated MCQs</h1>
-    {% if mcqs %}
-        <ol>
-            {% for question in mcqs %}
-                <li>
-                    {{ question[1][0] }}<br>
-                    <ul>
-                        {% for i, option in enumerate(question[1][1]) %}
-                            <li>{{ chr(97 + i) }} {{ option }}</li>
-                        {% endfor %}
-                    </ul>
-                    Correct Answer: {{ question[1][2] }}
-                </li>
-            {% endfor %}
-        </ol>
-    {% else %}
-        <p>No MCQs generated.</p>
-    {% endif %}
+    <div class="quizquestions">
+        <h1>Generated MCQs</h1>
+        {% if mcqs %}
+        <div class="question-container">
+            <ol>
+                {% for question in mcqs %}
+                <div class="quiz-cards">
+                    <div class="contents">
+                        <li>
+                            {{ question[1][0] }}<br>
+                            <ul>
+                                {% for i, option in enumerate(question[1][1]) %}
+                                    <div class="btn-container">
+                                        <button>{{ chr(97 + i) }} {{ option }}</button>
+                                    </div>    
+                                {% endfor %}
+                            </ul>
+                            Correct Answer: {{ question[1][2] }}
+                        </li>
+                    </div>
+                </div>
+                {% endfor %}
+            </ol>
+        </div>
+        {% else %}
+            <p>No MCQs generated.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
