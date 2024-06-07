@@ -26,7 +26,7 @@ def extract_pdf_text(file_path):
         print(f"Error: {e}")
         return None
 
-def generate_mcqs(text, num_questions=20):
+def generate_mcqs(text, num_questions=5):
     nlp = spacy.load('en_core_web_sm')
     if text is None:
         return []
@@ -79,7 +79,7 @@ def upload():
 def questions():
     file_path = request.args.get('file_path')
     text = extract_pdf_text(file_path)
-    mcqs = generate_mcqs(text, num_questions=20)
+    mcqs = generate_mcqs(text, num_questions=5)
     mcqs_with_index = [(i + 1, mcq) for i, mcq in enumerate(mcqs)]
     return render_template('questions.html', mcqs=mcqs_with_index, enumerate=enumerate, chr=chr)
 
