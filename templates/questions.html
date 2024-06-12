@@ -81,34 +81,29 @@
 
             displayQuestion(currentQuestionIndex);
 
-            questionContainer.addEventListener('click', function(event) {
-                if (event.target.classList.contains('answer-btn')) {
-                    const selectedOption = event.target.dataset.option;
-                    const correctAnswer = event.target.dataset.correctAnswer;
-                    const isCorrect = selectedOption === correctAnswer;
-                    userAnswers.push({
-                        selectedOption,
-                        correctAnswer,
-                        isCorrect
-                    });
-
-                    if (isCorrect) {
-                        event.target.classList.add('correct');
-                        event.target.textContent += ' (Correct)';
-                        score += 10;
-                    } else {
-                        event.target.classList.add('incorrect');
-                        event.target.textContent += ' (Wrong)';
-                    }
-
-                    scoreDisplay.textContent = `Score: ${score}/${totalQuestions * 10}`;
-                    setTimeout(() => {
-                        currentQuestionIndex++;
-                        displayQuestion(currentQuestionIndex);
-                    }, 2000);  // Adjust the timeout duration as needed
+        // Event delegation for answer buttons
+        questionContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('answer-btn')) {
+                const selectedOption = event.target.textContent.trim().charAt(0);
+                const correctAnswer = event.target.dataset.correctAnswer;
+                if (selectedOption === correctAnswer) {
+                    event.target.classList.add('correct');
+                    event.target.textContent += ' (Correct)';
+                    score += 10;
+                } else {
+                    event.target.classList.add('incorrect');
+                    event.target.textContent += ' (Wrong)';
                 }
-            });
+                scoreDisplay.textContent = `Score: ${score}/${totalQuestions * 10}`;
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    displayQuestion(currentQuestionIndex);
+                }, 1000);  // Adjust the timeout duration as needed
+            }
         });
+    });
+
+
     </script>
 </head>
 <body>
