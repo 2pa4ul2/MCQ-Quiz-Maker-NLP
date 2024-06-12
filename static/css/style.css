@@ -13,7 +13,7 @@
 
 body{
     font-family: 'Poppins', sans-serif;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
 .container {
@@ -23,7 +23,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
     .container h1{
@@ -81,10 +81,10 @@ body{
 
         button{
             border: none;
-            background: var(--primary-color);
+            background: var(--white-color);
             padding: 10px 20px;
             border-radius: 8px;
-            color: #fff;
+            color: var(--secondary-color);
             cursor: pointer;
             margin: 10px;
         }
