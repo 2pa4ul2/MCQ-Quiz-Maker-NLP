@@ -127,3 +127,39 @@ body{
     li{
         margin: 20px;
     }
+
+    #score{
+        text-align: center;
+        color: var(--white-color);
+        font-size: 2rem;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+    .scoretext{
+        color: var(--white-color);
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    .finalscore{
+        color: var(--white-color);
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    .answer-btn {
+        padding: 8px 16px;
+        margin: 5px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    .correct {
+        background-color: #28a745; /* Green color for correct answer */
+        color: #fff; /* White text color */
+    }
+    
+    .incorrect {
+        background-color: #dc3545; /* Red color for incorrect answer */
+        color: #fff; /* White text color */
+    }

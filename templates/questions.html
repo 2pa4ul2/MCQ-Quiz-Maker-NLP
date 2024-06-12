@@ -5,31 +5,75 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generated MCQs</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        let score = 0;
+        let currentQuestionIndex = 0;
+        const totalQuestions = {{ mcqs|length }};
+        const questions = {{ mcqs|tojson }};
+        
+        const questionContainer = document.querySelector('.question-container');
+        const scoreDisplay = document.getElementById('score');
+        
+        function displayQuestion(index) {
+            if (index >= totalQuestions) {
+                questionContainer.innerHTML = `<p class="scoretext">Quiz completed!</p><p class="finalscore">Final Score: ${score}/${totalQuestions * 10}</p>`;
+                return;
+            }
+            
+            const question = questions[index];
+            questionContainer.innerHTML = `
+                <div class="quiz-cards">
+                    <div class="contents">
+                        <li>
+                            ${question[1][0]}<br>
+                            <ol class="numbered-list">
+                                ${question[1][1].map((option, i) => `
+                                    <div class="btn-container">
+                                        <button class="answer-btn" data-correct-answer="${question[1][2]}">${String.fromCharCode(65 + i)}. ${option}</button>
+                                    </div>
+                                `).join('')}
+                            </ol>
+                        </li>
+                    </div>
+                </div>
+            `;
+        }
+        
+        displayQuestion(currentQuestionIndex);
+
+        // Event delegation for answer buttons
+        questionContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('answer-btn')) {
+                const selectedOption = event.target.textContent.trim().charAt(0);
+                const correctAnswer = event.target.dataset.correctAnswer;
+                if (selectedOption === correctAnswer) {
+                    event.target.classList.add('correct');
+                    event.target.textContent += ' (Correct)';
+                    score += 10;
+                } else {
+                    event.target.classList.add('incorrect');
+                    event.target.textContent += ' (Wrong)';
+                }
+                scoreDisplay.textContent = `Score: ${score}/${totalQuestions * 10}`;
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    displayQuestion(currentQuestionIndex);
+                }, 1000);  // Adjust the timeout duration as needed
+            }
+        });
+    });
+
+
+    </script>
 </head>
 <body>
     <div class="quizquestions">
         <h1>Generated MCQs</h1>
         {% if mcqs %}
+        <div id="score">Score: 0/{{ mcqs|length * 10 }}</div>
         <div class="question-container">
-            <ol>
-                {% for question in mcqs %}
-                <div class="quiz-cards">
-                    <div class="contents">
-                        <li>
-                            {{ question[1][0] }}<br>
-                            <ul>
-                                {% for i, option in enumerate(question[1][1]) %}
-                                    <div class="btn-container">
-                                        <button>{{ chr(97 + i) }} {{ option }}</button>
-                                    </div>    
-                                {% endfor %}
-                            </ul>
-                            Correct Answer: {{ question[1][2] }}
-                        </li>
-                    </div>
-                </div>
-                {% endfor %}
-            </ol>
+            <!-- quiz will be here -->
         </div>
         {% else %}
             <p>No MCQs generated.</p>
