@@ -89,8 +89,9 @@ body{
             margin: 10px;
         }
         button:hover{
-            background: var(--accent-color);
-            transition: .2s ease-in-out;
+            background: opacity 0.3;
+            transform: scale(1.1);
+            transition: transform .2s ease-in-out;
         }
 
     .quizquestions h1{
