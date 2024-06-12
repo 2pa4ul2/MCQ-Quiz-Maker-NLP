@@ -7,64 +7,108 @@
     <title>Generated MCQs</title>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        let score = 0;
-        let currentQuestionIndex = 0;
-        const totalQuestions = {{ mcqs|length }};
-        const questions = {{ mcqs|tojson }};
-        
-        const questionContainer = document.querySelector('.question-container');
-        const scoreDisplay = document.getElementById('score');
-        
-        function displayQuestion(index) {
-            if (index >= totalQuestions) {
-                questionContainer.innerHTML = `<p class="scoretext">Quiz completed!</p><p class="finalscore">Final Score: ${score}/${totalQuestions * 10}</p>`;
-                return;
-            }
-            
-            const question = questions[index];
-            questionContainer.innerHTML = `
-                <div class="quiz-cards">
-                    <div class="contents">
-                        <li>
-                            ${question[1][0]}<br>
-                            <ol class="numbered-list">
-                                ${question[1][1].map((option, i) => `
-                                    <div class="btn-container">
-                                        <button class="answer-btn" data-correct-answer="${question[1][2]}">${String.fromCharCode(65 + i)}. ${option}</button>
-                                    </div>
-                                `).join('')}
-                            </ol>
-                        </li>
-                    </div>
-                </div>
-            `;
-        }
-        
-        displayQuestion(currentQuestionIndex);
+            let score = 0;
+            let currentQuestionIndex = 0;
+            const totalQuestions = {{ mcqs|length }};
+            const questions = {{ mcqs|tojson }};
+            const userAnswers = [];
 
-        // Event delegation for answer buttons
-        questionContainer.addEventListener('click', function(event) {
-            if (event.target.classList.contains('answer-btn')) {
-                const selectedOption = event.target.textContent.trim().charAt(0);
-                const correctAnswer = event.target.dataset.correctAnswer;
-                if (selectedOption === correctAnswer) {
-                    event.target.classList.add('correct');
-                    event.target.textContent += ' (Correct)';
-                    score += 10;
-                } else {
-                    event.target.classList.add('incorrect');
-                    event.target.textContent += ' (Wrong)';
+            const questionContainer = document.querySelector('.question-container');
+            const scoreDisplay = document.getElementById('score');
+
+            function displayQuestion(index) {
+                if (index >= totalQuestions) {
+                    displayResults();
+                    hideScore();
+                    return;
                 }
-                scoreDisplay.textContent = `Score: ${score}/${totalQuestions * 10}`;
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    displayQuestion(currentQuestionIndex);
-                }, 1000);  // Adjust the timeout duration as needed
+
+                const question = questions[index];
+                questionContainer.innerHTML = `
+                    <div class="quiz-cards">
+                        <div class="contents">
+                            <li>
+                                ${question[1][0]}<br>
+                                <ol class="numbered-list">
+                                    ${question[1][1].map((option, i) => `
+                                        <div class="btn-container">
+                                            <button class="answer-btn" data-option="${String.fromCharCode(65 + i)}" data-correct-answer="${question[1][2]}">${String.fromCharCode(65 + i)}. ${option}</button>
+                                        </div>
+                                    `).join('')}
+                                </ol>
+                            </li>
+                        </div>
+                    </div>
+                `;
             }
+
+            function displayResults() {
+                let resultsHTML = `
+                    <p class="scoretext">Quiz completed!</p>
+                    <p class="finalscore">Final Score: ${score}/${totalQuestions * 10}</p>
+                    <div class="results-container">
+                `;
+                userAnswers.forEach((answer, index) => {
+                    const question = questions[index];
+                    resultsHTML += `
+                        <div class="quiz-cards">
+                            <div class="contents">
+                                <li>
+                                    <p>${question[1][0]}</p>
+                                    <ol class="numbered-list">
+                                        ${question[1][1].map((option, i) => `
+                                            <div class="btn-container">
+                                                <button class="answer-btn ${answer.selectedOption === String.fromCharCode(65 + i) ? (answer.isCorrect ? 'correct' : 'incorrect') : ''}" data-option="${String.fromCharCode(65 + i)}">
+                                                    ${String.fromCharCode(65 + i)}. ${option}
+                                                </button>
+                                            </div>
+                                        `).join('')}
+                                    </ol>
+                                    <p>Your answer: ${answer.selectedOption} ${answer.isCorrect ? '(Correct)' : '(Wrong)'}</p>
+                                    <p>Correct answer: ${answer.correctAnswer}</p>
+                                </li>
+                            </div>
+                        </div>
+                    `;
+                });
+                resultsHTML += `</div>`;
+                questionContainer.innerHTML = resultsHTML;
+            }
+
+            function hideScore() {
+                scoreDisplay.style.display = 'none';
+            }
+
+            displayQuestion(currentQuestionIndex);
+
+            questionContainer.addEventListener('click', function(event) {
+                if (event.target.classList.contains('answer-btn')) {
+                    const selectedOption = event.target.dataset.option;
+                    const correctAnswer = event.target.dataset.correctAnswer;
+                    const isCorrect = selectedOption === correctAnswer;
+                    userAnswers.push({
+                        selectedOption,
+                        correctAnswer,
+                        isCorrect
+                    });
+
+                    if (isCorrect) {
+                        event.target.classList.add('correct');
+                        event.target.textContent += ' (Correct)';
+                        score += 10;
+                    } else {
+                        event.target.classList.add('incorrect');
+                        event.target.textContent += ' (Wrong)';
+                    }
+
+                    scoreDisplay.textContent = `Score: ${score}/${totalQuestions * 10}`;
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        displayQuestion(currentQuestionIndex);
+                    }, 2000);  // Adjust the timeout duration as needed
+                }
+            });
         });
-    });
-
-
     </script>
 </head>
 <body>
