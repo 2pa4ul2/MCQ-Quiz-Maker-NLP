@@ -12,6 +12,8 @@
             <h1>Upload PDF to Generate MCQs</h1>
             <form action="/upload" method="post" enctype="multipart/form-data">
                 <input type="file" name="pdf_file" accept=".pdf" required>
+                <!-- Add a new input field for specifying the number of questions -->
+                <input type="number" name="num_questions" value="5" min="1" max="100" required>
                 <button type="submit">Upload</button>
             </form>
         </div>
