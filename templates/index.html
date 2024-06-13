@@ -13,14 +13,42 @@
 <body>
     <main>
         <div class="container">
+            <p class="img">
+                <img id="img" src="../static/images/QUIZZABLE.png" alt="">
+            </p>
             <h1>Upload PDF to Generate MCQs</h1>
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                <input type="file" name="pdf_file" accept=".pdf" required>
-                <!-- Add a new input field for specifying the number of questions -->
-                <input type="number" name="num_questions" value="5" min="1" max="100" required>
-                <button class="button-3d" type="submit">Upload</button>
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="cardupload">
+                        <h3>Upload Files</h3>
+                        <div class="drop_box">
+                        <header>
+                            <h4>Select File here</h4>
+                        </header>
+                        <p>Files Supported: PDF, TEXT, DOC , DOCX</p>
+                        <input type="file" name="pdf_file" accept=".pdf" id="fileID" required>
+                        <p>How many Question do you want to generate?</p>
+                        <input type="number" name="num_questions" value="5" min="1" max="100" required>
+                        </div>
+                        <div class="ans-btn-container">
+                            <button class="answer-btn" type="submit">Upload</button>
+                        </div>
+                    </div>
             </form>
         </div>
+        <div class="loader-container" id="loaderContainer">
+            <div class="loader"></div>
+        </div>
     </main>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById('loaderContainer').style.display = 'flex';
+            
+            // Simulate form submission (replace with actual form submission logic)
+            setTimeout(function() {
+                document.getElementById('uploadForm').submit(); // Submit the form after showing loader
+            }, 1000); // Simulate 1 second delay, replace with actual AJAX or server-side logic
+        });
+    </script>
 </body>
 </html>

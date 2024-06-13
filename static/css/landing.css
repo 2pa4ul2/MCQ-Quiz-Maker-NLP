@@ -43,39 +43,70 @@ body{
             height: auto;
         }
         .button-3d {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: 0;
+            vertical-align: middle;
+            text-decoration: none;
             font-family: "Press Start 2P", system-ui;
-            font-weight: 600;
             font-size: 1.5rem;
-            position:relative;
-            width: 200px;
-            display:inline-block;
-            color:#382b22;
-            text-decoration:none;
-            border-radius:5px;
-            border:solid 2px #b18597;
-            background:#ffe9e9;
-            text-align:center;
-            padding:16px 18px 14px;
-            margin: 12px;
-            
-            -webkit-transition: all 0.1s;
-            -moz-transition: all 0.1s;
-            transition: all 0.1s;
-            
-            -webkit-box-shadow: 0px 10px 0px #f9c4d2;
-            -moz-box-shadow: 0px 10px 0px #f9c4d2;
-            box-shadow: 0px 10px 0px #ffe3e2;
+            font-weight: 600;
+            color: #382b22; /* Adjusted to match SCSS $text */
+            text-transform: uppercase;
+            padding: 1.25em 2em;
+            background: #ffe9e9; /* Assumed value for $light-pink */
+            border: 2px solid #b18597; /* Assumed value for $pink-border */
+            border-radius: 0.75em;
+            transform-style: preserve-3d;
+            transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
             }
             
-            .button-3d:hover{
-                -webkit-box-shadow: 0px 6px 0px #f9c4d2;
-                box-shadow: 0px 6px 0px #ffe3e2;
-                position:relative;
+            .button-3d::before {
+                position: absolute;
+                content: '';
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #ffb3b3; /* Assumed value for $dark-pink */
+                border-radius: inherit;
+                transform: translate3d(0, 0.75em, -1em);
+                transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
             }
-            .button-3d:active{
-                -webkit-box-shadow: 0px 2px 0px #f9c4d2;
-                -moz-box-shadow: 0px 2px 0px #f9c4d2;
-                box-shadow: 0px 2px 0px #ffe3e2;
-                position:relative;
-                top:4px;
+            
+            .button-3d:hover {
+                background: #ffcccc; /* Assumed value for $pink */
+                transform: translate(0, 0.25em);
             }
+            
+            .button-3d:hover::before {
+                transform: translate3d(0, 0.5em, -1em);
+            }
+            
+            .button-3d:active {
+                background: #ffcccc; /* Assumed value for $pink */
+                transform: translate(0em, 0.75em);
+            }
+            
+            .button-3d:active::before {
+                box-shadow: 0 0 0 2px #b18597, 0 0 #f9c4d2;
+                transform: translate3d(0, 0, -1em);
+            }
+            
+            h2 {
+                font-family: "Press Start 2P", system-ui;
+                width: 70%;
+                text-align: center;
+                line-height: 40px;
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin: 10px 10px 30px 10px;
+                color: #fff;
+                text-shadow: 0 0 20px #3025ff; /* Adjust the shadow color and blur radius as needed */
+            }
+            
+            

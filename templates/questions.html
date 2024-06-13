@@ -31,16 +31,17 @@
                 questionContainer.innerHTML = `
                     <div class="quiz-cards">
                         <div class="contents">
-                            <li>
-                                ${question[1][0]}<br>
-                                <ol class="numbered-list">
-                                    ${question[1][1].map((option, i) => `
-                                        <div class="btn-container">
-                                            <button class="answer-btn" data-option="${String.fromCharCode(65 + i)}" data-correct-answer="${question[1][2]}">${String.fromCharCode(65 + i)}. ${option}</button>
-                                        </div>
-                                    `).join('')}
-                                </ol>
-                            </li>
+                            <p>Question ${index + 1} of ${totalQuestions}</p>
+                            <p>${question[1][0]}</p>
+                            <ol class="numbered-list">
+                                ${question[1][1].map((option, i) => `
+                                    <div class="btn-container">
+                                        <button class="answer-btn" data-option="${String.fromCharCode(65 + i)}" data-correct-answer="${question[1][2]}">
+                                            ${String.fromCharCode(65 + i)}. ${option}
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </ol>
                         </div>
                     </div>
                 `;
@@ -57,20 +58,18 @@
                     resultsHTML += `
                         <div class="quiz-cards">
                             <div class="contents">
-                                <li>
-                                    <p>${question[1][0]}</p>
-                                    <ol class="numbered-list">
-                                        ${question[1][1].map((option, i) => `
-                                            <div class="btn-container">
-                                                <button class="answer-btn ${answer.selectedOption === String.fromCharCode(65 + i) ? (answer.isCorrect ? 'correct' : 'incorrect') : ''}" data-option="${String.fromCharCode(65 + i)}">
-                                                    ${String.fromCharCode(65 + i)}. ${option}
-                                                </button>
-                                            </div>
-                                        `).join('')}
-                                    </ol>
-                                    <p>Your answer: ${answer.selectedOption} ${answer.isCorrect ? '(Correct)' : '(Wrong)'}</p>
-                                    <p>Correct answer: ${answer.correctAnswer}</p>
-                                </li>
+                                <p>${question[1][0]}</p>
+                                <ol class="numbered-list">
+                                    ${question[1][1].map((option, i) => `
+                                        <div class="btn-container">
+                                            <button class="answer-btn ${answer.selectedOption === String.fromCharCode(65 + i) ? (answer.isCorrect ? 'correct' : 'incorrect') : ''}" data-option="${String.fromCharCode(65 + i)}">
+                                                ${String.fromCharCode(65 + i)}. ${option}
+                                            </button>
+                                        </div>
+                                    `).join('')}
+                                </ol>
+                                <p>Your answer: ${answer.selectedOption} ${answer.isCorrect ? '(Correct)' : '(Wrong)'}</p>
+                                <p>Correct answer: ${answer.correctAnswer}</p>
                             </div>
                         </div>
                     `;
@@ -118,15 +117,22 @@
 <body>
     <div class="quizquestions">
         <p class="img"><img src="../static/images/QUIZZABLE.png" alt=""></p>
-        <h1>Generated MCQs</h1>
-        {% if mcqs %}
-        <div id="score">Score: 0/{{ mcqs|length * 10 }}</div>
+        <div class="texttop-container">
+            <div class="texttopsecond-container">
+                <h1>Generated Questions</h1>
+                {% if mcqs %}
+                <div id="score">Score: 0/{{ mcqs|length * 10 }}</div>
+            </div>
+        </div>
         <div class="question-container">
             <!-- quiz will be here -->
         </div>
         {% else %}
             <p>No MCQs generated.</p>
         {% endif %}
+    </div>
+    <div class="return-container">
+        <a class="answer-btn" href="{{ url_for('index') }}">Return</a>
     </div>
 </body>
 </html>
