@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generated MCQs</title>
@@ -113,6 +117,7 @@
 </head>
 <body>
     <div class="quizquestions">
+        <p class="img"><img src="../static/images/QUIZZABLE.png" alt=""></p>
         <h1>Generated MCQs</h1>
         {% if mcqs %}
         <div id="score">Score: 0/{{ mcqs|length * 10 }}</div>

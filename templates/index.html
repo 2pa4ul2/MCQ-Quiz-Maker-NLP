@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload PDF</title>
@@ -14,7 +18,7 @@
                 <input type="file" name="pdf_file" accept=".pdf" required>
                 <!-- Add a new input field for specifying the number of questions -->
                 <input type="number" name="num_questions" value="5" min="1" max="100" required>
-                <button type="submit">Upload</button>
+                <button class="button-3d" type="submit">Upload</button>
             </form>
         </div>
     </main>
