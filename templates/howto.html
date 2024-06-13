@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Generated MCQs</title>
+</head>
+<body>
+    <main>
+        <img id="img" src="../static/images/QUIZZABLE.png" alt="">
+        <div class="main-container">
+            <h2>How to use this app?</h2>
+            <div class="card-container">
+                <div class="card">
+                    <i class='bx bx-upload'></i>
+                    <h3>Step 1</h3>
+                    <p>Upload a PDF file containing the text you want to generate MCQs from.</p>
+                </div>
+                <div class="card">
+                    <i class='bx bx-hash' ></i>
+                    <h3>Step 2</h3>
+                    <p>Specify the number of questions you want to generate.</p>
+                </div>
+                <div class="card">
+                    <i class='bx bx-joystick-button' ></i>
+                    <h3>Step 3</h3>
+                    <p>Click the "Upload" button to generate MCQs from the uploaded PDF file.</p>
+                </div>
+                <div class="card">
+                    <i class='bx bx-shape-circle' ></i>
+                    <h3>Step 4</h3>
+                    <p>Answer the generated MCQs and check your score at the end.</p>
+                </div>
+            </div>
+            <a class="button-3d" href="{{ url_for('landing') }}">Go Back</a>
+        </div>
+    </main>
+</body>
+</html>

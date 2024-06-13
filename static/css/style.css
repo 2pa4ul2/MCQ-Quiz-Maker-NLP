@@ -72,12 +72,11 @@ body{
             width: 250px;
             max-width: 100%;
             color: #5a3042;
-            font-weight: 600;
+            font-weight: 700;
             padding: 15px 5px;
             background-color: #ffc8c8;
             border-radius: 8px;
             border: 2px solid #5a3042;
-            margin: 0 0 30px 0;
             font-size: 1rem;
         }
 
@@ -138,6 +137,7 @@ body{
             
 
     .quizquestions h1{
+        font-family: "Rowdies", sans-serif;
         display: flex;
         justify-content: center;
         color: var(--white-color);
@@ -372,7 +372,7 @@ body{
             align-items: center;
             width: 100%;
             flex-wrap: wrap;
-            margin: 20px 0 20px 0;
+            margin: 10px 0 10px 0;
         }
 
         .cardupload {

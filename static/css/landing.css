@@ -21,6 +21,7 @@
 }
 
 body{
+    margin: 0;
     font-family: 'Poppins', sans-serif;
     background: rgb(255,172,208);
     background: radial-gradient(circle, rgba(255,172,208,1) 0%, rgba(130,94,255,1) 46%, rgba(148,197,255,1) 100%);
@@ -28,6 +29,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
     main{
@@ -42,7 +44,18 @@ body{
             width: 50%;
             height: auto;
         }
+        #img{
+            width: 30%;
+            height: auto;
+        }
+        .landing-btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
         .button-3d {
+            margin: 0 10px;
             position: relative;
             display: inline-block;
             cursor: pointer;
@@ -51,11 +64,11 @@ body{
             vertical-align: middle;
             text-decoration: none;
             font-family: "Press Start 2P", system-ui;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: #382b22; /* Adjusted to match SCSS $text */
             text-transform: uppercase;
-            padding: 1.25em 2em;
+            padding: 1.25em;
             background: #ffe9e9; /* Assumed value for $light-pink */
             border: 2px solid #b18597; /* Assumed value for $pink-border */
             border-radius: 0.75em;
@@ -109,4 +122,50 @@ body{
                 text-shadow: 0 0 20px #3025ff; /* Adjust the shadow color and blur radius as needed */
             }
             
-            
+            .main-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+                .card-container{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                    .card{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        width: 250px;
+                        height: 250px;
+                        margin: 10px;
+                        padding: 10px;
+                        border-radius: 10px;
+                        background-color: var(--white-color);
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    .card:hover{
+                        transform: scale(1.1);
+                        transition: transform 0.5s;
+                    }
+
+            i{
+                font-size: 5rem;
+                color: #ff8383;
+            }
+            h3{
+                font-size: 1.5rem;
+                font-family: "Press Start 2P", system-ui;
+                color: #281fd5;
+            }
+            p{
+                width: 70%;
+                font-size: 1rem;
+                font-family: "Poppins", sans-serif;
+                text-align: center;
+                font-weight: 600;
+                color: #7069ff;
+            }

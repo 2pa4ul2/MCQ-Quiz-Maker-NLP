@@ -132,6 +132,10 @@ def generate_mcqs(text, num_questions=20):
 def landing():
     return render_template('landing.html')
 
+@app.route('/how')
+def howto():
+    return render_template('howto.html')
+
 @app.route('/index')
 def index():
     return render_template('index.html')
