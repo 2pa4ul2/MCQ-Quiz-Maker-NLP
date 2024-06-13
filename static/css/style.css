@@ -203,9 +203,13 @@ body{
         margin-bottom: 20px;
     }
     .finalscore{
-        color: var(--white-color);
+        color: #5a3042;
         font-size: 2.5rem;
         margin-bottom: 20px;
+        background-color: #f9c4d2;
+        border: 2px solid #5a3042;
+        border-radius: 10px;
+        padding: 1rem;
     }
 
     .numbered-list{
@@ -233,7 +237,9 @@ body{
         font-weight: 600;
         color: white; /* Adjusted to match SCSS $text */
         text-transform: uppercase;
-        padding: 1.25em;
+        /* padding: 1.25em; */
+        height: 80px;
+        width: 220px;
         background: #817aff; /* Assumed value for $light-pink */
         border: 2px solid #b18597; /* Assumed value for $pink-border */
         border-radius: 0.75em;
@@ -363,7 +369,8 @@ body{
         }
         .return-container{
             margin: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
         }
 
         .ans-btn-container{
@@ -443,4 +450,31 @@ body{
                             outline: none;
                             padding: 12px 20px;
                             border-radius: 4px;
+                        }
+
+                        .option {
+                            font-weight: bold;
+                            margin-right: 8px;
+                        }
+                        
+                        .user-answer {
+                            font-weight: bold;
+                            margin-left: 8px;
+                        }
+                        
+                        .feedback {
+                            color: green;
+                            margin-left: 8px;
+                        }
+                        
+                        .correct-answer {
+                            color: green;
+                            margin-top: 8px;
+                        }
+                        
+                        .feedback-message {
+                            font-size: 20px;
+                            font-weight: bold;
+                            text-align: center;
+                            margin-top: 20px;
                         }

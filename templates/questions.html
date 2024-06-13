@@ -75,8 +75,31 @@
                     `;
                 });
                 resultsHTML += `</div>`;
+
+                // Calculate percentage score
+                const percentageScore = (score / (totalQuestions * 10)) * 100;
+
+                // Determine and append message based on score percentage
+                let message = '';
+                if (percentageScore === 100) {
+                    message = "Congratulations! You scored 100%! Perfect!";
+                } else if (percentageScore >= 90) {
+                    message = "Excellent! You scored above 90%!";
+                } else if (percentageScore >= 80) {
+                    message = "Well done! You scored above 80%!";
+                } else if (percentageScore >= 70) {
+                    message = "Good job! You scored above 70%!";
+                } else if (percentageScore >= 60) {
+                    message = "Nice work! You scored above 60%!";
+                } else {
+                    message = "You can do better next time. Keep practicing!";
+                }
+
+                resultsHTML += `<p>${message}</p>`;
+
                 questionContainer.innerHTML = resultsHTML;
             }
+
 
             function hideScore() {
                 scoreDisplay.style.display = 'none';
@@ -132,7 +155,7 @@
         {% endif %}
     </div>
     <div class="return-container">
-        <a class="answer-btn" href="{{ url_for('index') }}">Return</a>
+        <a class="button-3d" href="{{ url_for('index') }}">Return</a>
     </div>
 </body>
 </html>

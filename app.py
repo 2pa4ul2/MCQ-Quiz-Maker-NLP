@@ -41,91 +41,76 @@ def get_synonyms(word):
 def generate_mcqs(text, num_questions=20):
     if text is None:
         return []
+    
     nlp = spacy.load('en_core_web_sm')
-    # Process the text with spaCy
     doc = nlp(text)
-
-    # Extract sentences from the text and filter out unwanted sentences
+    
     sentences = [sent.text.strip() for sent in doc.sents if len(sent.text.strip()) > 10 and not any(char.isdigit() for char in sent.text.strip())]
-
-    # Initialize set to store generated questions and answers
+    
     generated_questions = set()
-
-    # Initialize list to store generated MCQs
     mcqs = []
-
-    # Generate MCQs until we reach the desired number
+    
     while len(mcqs) < num_questions:
-        # Randomly select a sentence to form a question
         sentence = random.choice(sentences)
-
-        # Skip sentences that are too long
+        
         if len(sentence) > 200:
             continue
-
-        # Process the sentence with spaCy
+        
         sent_doc = nlp(sentence)
-
-        # Extract entities (nouns) from the sentence
         nouns = [token.text for token in sent_doc if token.pos_ == "NOUN"]
-
-        # Ensure there are enough nouns to generate MCQs
+        
         if len(nouns) < 1:
             continue
-
-        # Select a random noun as the subject of the question
+        
         subject = random.choice(nouns)
-
-        # Generate the question stem
         question_stem = sentence.replace(subject, "_______", 1)
-
-        # Check if the question has already been generated
+        
         if (question_stem, subject) in generated_questions:
             continue
-
-        # Generate answer choices
+        
         answer_choices = [subject]
-
-        # Get synonyms of the correct answer and similar words
+        
         synonyms = get_synonyms(subject)
         similar_words = [token.text for token in nlp.vocab if token.is_alpha and token.has_vector and token.is_lower and token.similarity(nlp(subject)) > 0.5][:3]
-
-        # Combine synonyms and similar words for distractors
+        
         distractors = list(set(synonyms + similar_words))
-
-        # Remove the correct answer from distractors
-        distractors = [d for d in distractors if d != subject]
-
-        # Ensure there are at least 3 distractors
+        distractors = [d for d in distractors if d.lower() != subject.lower()]  # Ensure different words
+        
         while len(distractors) < 3:
-            new_distractor = random.choice([token.text for token in nlp(text) if token.pos_ == "NOUN" and token.text != subject])
-            if new_distractor not in distractors:
-                distractors.append(new_distractor)
-
-        # Add distractors to answer choices
+            new_distractor = random.choice([token.text for token in nlp(text) if token.pos_ == "NOUN" and token.text.lower() != subject.lower() and token.text.lower() not in [d.lower() for d in distractors]])
+            distractors.append(new_distractor)
+        
         answer_choices.extend(random.sample(distractors, 3))
-
-        # Shuffle the answer choices
         random.shuffle(answer_choices)
-
-        # Check if the correct answer is trivial (e.g., "a.")
+        
         trivial_answer = True
         for option in answer_choices:
             if len(option) > 1:
                 trivial_answer = False
                 break
-
+        
         if trivial_answer:
             continue
-
-        # Append the generated MCQ to the list
-        correct_answer = chr(64 + answer_choices.index(subject) + 1)  # Convert index to letter
+        
+        # Check for similarity among choices
+        similar_choices = True
+        for i in range(len(answer_choices)):
+            for j in range(i + 1, len(answer_choices)):
+                if answer_choices[i].lower() == answer_choices[j].lower():
+                    similar_choices = False
+                    break
+            if not similar_choices:
+                break
+        
+        if not similar_choices:
+            continue
+        
+        correct_answer = chr(64 + answer_choices.index(subject) + 1)
         mcqs.append((question_stem, answer_choices, correct_answer))
-
-        # Add the generated question to the set
         generated_questions.add((question_stem, subject))
-
+    
     return mcqs
+
 
 
 @app.route('/')
