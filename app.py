@@ -45,7 +45,7 @@ def generate_mcqs(text, num_questions=20):
     nlp = spacy.load('en_core_web_sm')
     doc = nlp(text)
     
-    sentences = [sent.text.strip() for sent in doc.sents if len(sent.text.strip()) > 10 and not any(char.isdigit() for char in sent.text.strip())]
+    sentences = [sent.text.strip() for sent in doc.sents if len(sent.text.strip()) > 15 and not any(char.isdigit() for char in sent.text.strip())]
     
     generated_questions = set()
     mcqs = []
