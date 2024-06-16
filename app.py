@@ -57,7 +57,9 @@ def generate_mcqs(text, num_questions=20):
             continue
         
         sent_doc = nlp(sentence)
-        nouns = [token.text for token in sent_doc if token.pos_ == "NOUN"]
+        # nouns = [token.text for token in sent_doc if token.pos_ == "NOUN"]
+        nouns = [token.text for token in sent_doc if token.pos_ in ["NOUN", "PROPN"]]
+
         
         if len(nouns) < 1:
             continue
@@ -77,7 +79,7 @@ def generate_mcqs(text, num_questions=20):
         distractors = [d for d in distractors if d.lower() != subject.lower()]  # Ensure different words
         
         while len(distractors) < 3:
-            new_distractor = random.choice([token.text for token in nlp(text) if token.pos_ == "NOUN" and token.text.lower() != subject.lower() and token.text.lower() not in [d.lower() for d in distractors]])
+            new_distractor = random.choice([token.text for token in nlp(text) if token.pos_ in ["NOUN", "PROPN"] and token.text.lower() != subject.lower() and token.text.lower() not in [d.lower() for d in distractors]])
             distractors.append(new_distractor)
         
         answer_choices.extend(random.sample(distractors, 3))
